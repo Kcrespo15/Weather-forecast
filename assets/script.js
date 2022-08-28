@@ -6,7 +6,7 @@ var temperature = $("#temperature");
 var humidty= $("#humidityPer");
 var windSpeed=$("#windSpeed");
 var uvIndex= $("#uvIndex");
-
+var sCity = []
 
 
 // searches the city to see if it exists in the entries from the storage
