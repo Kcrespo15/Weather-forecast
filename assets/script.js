@@ -23,8 +23,7 @@ function find(c){
 function displayWeather(event){
     event.preventDefault();
     if(searchBar.val().trim()!==""){
-        city=searchBar.val().trim();
-        currentWeather(city);
+        console.log(searchBar)
     }
 }
 
@@ -46,8 +45,7 @@ function currentWeather(city){
         $(temperature).html(tempF + "&#8457");
         $(humidty).html(response.main.humidity+"%");
         var ws=response.wind.speed;
-        var windsmph= (ws).toFixed(1);
-        $(windSpeed).html(windsmph+"MPH");
+        $(windSpeed).html(ws+"MPH");
 
         // get uvIndex 
         UVIndex(response.coord.lon,response.coord.lat);
