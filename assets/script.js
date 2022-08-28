@@ -44,8 +44,8 @@ function currentWeather(city){
         var tempF = (response.main.temp )
         $(temperature).html(tempF + "&#8457");
         $(humidty).html(response.main.humidity+"%");
-        var ws=response.wind.speed;
-        $(windSpeed).html(ws+"MPH");
+        var windS=response.wind.speed;
+        $(windSpeed).html(windS+"MPH");
 
         // get uvIndex 
         UVIndex(response.coord.lon,response.coord.lat);
@@ -83,7 +83,7 @@ function UVIndex(lon,lat){
             });
 }
     
-// Here we display the 5 days forecast for the current city.
+// display the 5 days forecast
 function forecast(cityid){
     var forcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&units=imperial&appid=27c9211b5d8e1b6977681116bda54b7d";
     $.ajax({
@@ -97,7 +97,7 @@ function forecast(cityid){
             var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
             var tempK= response.list[i+1].main.temp;
             var tempF=(tempK).toFixed(2);
-            var humidity= response.list[(i+1)%2].main.humidity;
+            var humidity= response.list[i+1].main.humidity;
         
             $("#date"+i).html(date);
             $("#img"+i).html("<img src="+iconurl+">");
