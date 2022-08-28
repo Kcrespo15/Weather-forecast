@@ -33,23 +33,23 @@ function displayWeather(event){
 
 // get ajax call
 function currentWeather(city){
-   var queryURL= "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + APIKey;
+   var queryURL= "https://api.openweathermap.org/data/2.5/weather?q=" + city +"&units=imperial&appid=0656324568a33303c80afd015f0c27f8";
+   
     $.ajax({
         url:queryURL,
         method:"GET",
     }).then(function(response){
 
-        // parse data and convert to farenheit
         var weathericon= response.weather[0].icon;
         var iconurl="https://openweathermap.org/img/wn/"+weathericon +"@2x.png";
         var date=new Date(response.dt*1000).toLocaleDateString();
         $(searchedCity).html(response.name +"("+date+")" + "<img src="+iconurl+">");
         
-        var tempF = (response.main.temp - 273.15) * 1.80 + 32;
-        $(temperature).html((tempF).toFixed(2)+"&#8457");
+        var tempF = (response.main.temp )
+        $(temperature).html(tempF);
         $(humidty).html(response.main.humidity+"%");
         var ws=response.wind.speed;
-        var windsmph=(ws*2.237).toFixed(1);
+        var windsmph= (ws).toFixed(1);
         $(windSpeed).html(windsmph+"MPH");
 
         // get uvIndex 
@@ -91,7 +91,7 @@ function UVIndex(lon,lat){
 // Here we display the 5 days forecast for the current city.
 function forecast(cityid){
     var dayover= false;
-    var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&appid="+APIKey;
+    var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&units=imperial&appid=0656324568a33303c80afd015f0c27f8";
     $.ajax({
         url:queryforcastURL,
         method:"GET"
@@ -99,11 +99,11 @@ function forecast(cityid){
         
         for (i=0;i<5;i++){
             var date= new Date((response.list[((i+1)*8)-1].dt)*1000).toLocaleDateString();
-            var iconcode= response.list[((i+1)*8)-1].weather[0].icon;
+            var iconcode= response.list[i+1].weather[0].icon;
             var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
-            var tempK= response.list[((i+1)*8)-1].main.temp;
-            var tempF=(((tempK-273.5)*1.80)+32).toFixed(2);
-            var humidity= response.list[((i+1)*8)-1].main.humidity;
+            var tempK= response.list[i+1].main.temp;
+            var tempF=(tempK).toFixed(2);
+            var humidity= response.list[i+1].main.humidity;
         
             $("#date"+i).html(date);
             $("#img"+i).html("<img src="+iconurl+">");
