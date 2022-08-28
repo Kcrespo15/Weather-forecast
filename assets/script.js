@@ -19,9 +19,6 @@ function find(c){
     return 1;
 }
 
-//Set up the API key
-var APIKey="27c9211b5d8e1b6977681116bda54b7d";
-
 // display weather of current city searched
 function displayWeather(event){
     event.preventDefault();
@@ -33,7 +30,7 @@ function displayWeather(event){
 
 // get ajax call
 function currentWeather(city){
-   var queryURL= "https://api.openweathermap.org/data/2.5/weather?q=" + city +"&units=imperial&appid=0656324568a33303c80afd015f0c27f8";
+   var queryURL= "https://api.openweathermap.org/data/2.5/weather?q=" + city +"&units=imperial&appid=27c9211b5d8e1b6977681116bda54b7d";
    
     $.ajax({
         url:queryURL,
@@ -46,7 +43,7 @@ function currentWeather(city){
         $(searchedCity).html(response.name +"("+date+")" + "<img src="+iconurl+">");
         
         var tempF = (response.main.temp )
-        $(temperature).html(tempF);
+        $(temperature).html(tempF + "&#8457");
         $(humidty).html(response.main.humidity+"%");
         var ws=response.wind.speed;
         var windsmph= (ws).toFixed(1);
@@ -79,7 +76,7 @@ function currentWeather(city){
 
     // This function returns the UVIindex response.
 function UVIndex(lon,lat){
-    var uvqURL="https://api.openweathermap.org/data/2.5/uvi?appid="+ APIKey+"&lat="+lat+"&lon="+lon;
+    var uvqURL="https://api.openweathermap.org/data/2.5/uvi?appid=27c9211b5d8e1b6977681116bda54b7d&lat="+lat+"&lon="+lon;
     $.ajax({
             url:uvqURL,
             method:"GET"
@@ -90,8 +87,7 @@ function UVIndex(lon,lat){
     
 // Here we display the 5 days forecast for the current city.
 function forecast(cityid){
-    var dayover= false;
-    var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&units=imperial&appid=0656324568a33303c80afd015f0c27f8";
+    var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&units=imperial&appid=27c9211b5d8e1b6977681116bda54b7d";
     $.ajax({
         url:queryforcastURL,
         method:"GET"
@@ -103,7 +99,7 @@ function forecast(cityid){
             var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
             var tempK= response.list[i+1].main.temp;
             var tempF=(tempK).toFixed(2);
-            var humidity= response.list[i+1].main.humidity;
+            var humidity= response.list[(i+1)%2].main.humidity;
         
             $("#date"+i).html(date);
             $("#img"+i).html("<img src="+iconurl+">");
@@ -121,6 +117,7 @@ function addToList(c){
     $(listEl).attr("data-value",c.toUpperCase());
     $(".list-group").append(listEl);
 }
+
 // display the past search again when the list group item is clicked in search history
 function invokePastSearch(event){
     var liEl=event.target;
