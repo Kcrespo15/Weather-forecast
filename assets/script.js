@@ -7,7 +7,6 @@ var humidty= $("#humidityPer");
 var windSpeed=$("#windSpeed");
 var uvIndex= $("#uvIndex");
 var sCity=[];
-var city="";
 
 // searches the city to see if it exists in the entries from the storage
 function find(c){
@@ -23,7 +22,7 @@ function find(c){
 function displayWeather(event){
     event.preventDefault();
     if(searchBar.val().trim()!==""){
-        city=searchBar.val().trim();
+         var city=searchBar.val().trim();
         currentWeather(city);
     }
 }
