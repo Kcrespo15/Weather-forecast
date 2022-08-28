@@ -9,8 +9,6 @@ var uvIndex= $("#uvIndex");
 var sCity=[];
 var city="";
 
-
-
 // searches the city to see if it exists in the entries from the storage
 function find(c){
     for (var i=0; i<sCity.length; i++){
@@ -21,10 +19,8 @@ function find(c){
     return 1;
 }
 
-
 //Set up the API key
 var APIKey="27c9211b5d8e1b6977681116bda54b7d";
-
 
 // display weather of current city searched
 function displayWeather(event){
@@ -34,7 +30,6 @@ function displayWeather(event){
         currentWeather(city);
     }
 }
-
 
 // get ajax call
 function currentWeather(city){
@@ -57,7 +52,6 @@ function currentWeather(city){
         var windsmph=(ws*2.237).toFixed(1);
         $(windSpeed).html(windsmph+"MPH");
 
-       
         // get uvIndex 
         UVIndex(response.coord.lon,response.coord.lat);
         forecast(response.id);
@@ -152,11 +146,7 @@ function loadlastCity(){
 
 }
 
-
 //Click Handlers
 $("#searchBtn").on("click",displayWeather);
 $(document).on("click",invokePastSearch);
 $(window).on("load",loadlastCity);
-
-
-
