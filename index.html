@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<title>Weather Forecast Dashboard</title>
+</head>
+
+<body>
+    <!-- header section  -->
+    <header class="container-fluid navbar p-5 bg-primary text-white">
+        <h1> Weather Forecast dashboard</h1>
+    </header>
+
+    <!-- search engine for city -->
+    <div class="container">
+     
+        <div class="row">
+            <div class="col-4">
+                <h4 class="pt-4">City Search</h4>
+              
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control" id="searchBar">
+                    <div class="input-group-append">
+                        <button class=" btn bg-primary " id="searchBtn"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+               
+                <button class=" btn btn-info" type="button" id="clearBtn">Clear history</button>
+                <ul class="list-group">
+
+                </ul>
+            </div>   
+            <div class="col-8">
+                <div class="row border border-dark">
+                    <div class="col-12" id="currentWeather">
+                        <h3 class="city-name mb-1 mt-2 bolder" id="current-city"></h3>
+                        <p>Temperature:<span class="current" id="temperature"></span></p>
+                        <p>Wind Speed:<span class="current" id="wind-speed"></span></p>
+                        <p>Humidity:<span class="current" id="humidity"></span></p> 
+                        <p>UV index:<span class="current bg-danger rounded py-2 px-2 text-white" id="uvIndex"></span></p> 
+                    </div>
+                </div>
+
+
+                <!-- section for 5-Day forecast -->
+                <div class="col-12" id ="fiveDay">
+                    <h3>5-Day Forecast:</h3>
+                    <div class="row text-light">
+                        <div class="col-2 bg-primary forecast text-white p-2">
+                            <p id="Date0"></p>
+                            <p id="Img0"></p>
+                            <p>Temp:<span id="Temp0"></span></p>
+                            <p>Humidity:<span id="Humidity0"></span></p>
+                        </div>
+                        <div class="col-2 bg-primary forecast text-white ml-2 p-2">
+                            <p id="Date1"></p>
+                            <p id="Img1"></p>
+                            <p>Temp:<span id="fTemp1"></span></p>
+                            <p>Humidity:<span id="fHumidity1"></span></p>
+                        </div>
+                        <div class="col-2 bg-primary forecast text-white ml-2 p-2">
+                            <p id="Date2"></p>
+                            <p id="Img2"></p>
+                            <p>Temp:<span id="fTemp2"></span></p>
+                            <p>Humidity:<span id="fHumidity2"></span></p>
+                        </div>
+                        <div class="col-2 bg-primary forecast text-white ml-2 p-2">
+                            <p id="Date3"></p>
+                            <p id="Img3"></p>
+                            <p>Temp:<span id="fTemp3"></span></p>
+                            <p>Humidity:<span id="fHumidity3"></span></p>
+                        </div>
+                        <div class="col-2 bg-primary forecast text-white ml-2 p-2">
+                            <p id="Date4"></p>
+                            <p id="Img4"></p>
+                            <p>Temp:<span id="Temp4"></span></p>
+                            <p>Humidity:<span id="Humidity4"></span></p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+		
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+     <script src="assets/script.js"></script>
+
+
+</body>
+</html>
