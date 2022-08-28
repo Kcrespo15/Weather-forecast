@@ -6,8 +6,8 @@ var temperature = $("#temperature");
 var humidty= $("#humidityPer");
 var windSpeed=$("#windSpeed");
 var uvIndex= $("#uvIndex");
-var sCity=[];
-var city="";
+
+
 
 // searches the city to see if it exists in the entries from the storage
 function find(c){
@@ -74,11 +74,11 @@ function currentWeather(city){
     });
 }
 
-    // This function returns the UVIindex response.
+    // udIndex function
 function UVIndex(lon,lat){
-    var uvqURL="https://api.openweathermap.org/data/2.5/uvi?appid=27c9211b5d8e1b6977681116bda54b7d&lat="+lat+"&lon="+lon;
+    var uvURL="https://api.openweathermap.org/data/2.5/uvi?appid=27c9211b5d8e1b6977681116bda54b7d&lat="+lat+"&lon="+lon;
     $.ajax({
-            url:uvqURL,
+            url:uvURL,
             method:"GET"
             }).then(function(response){
                 $(uvIndex).html(response.value);
@@ -87,9 +87,9 @@ function UVIndex(lon,lat){
     
 // Here we display the 5 days forecast for the current city.
 function forecast(cityid){
-    var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&units=imperial&appid=27c9211b5d8e1b6977681116bda54b7d";
+    var forcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&units=imperial&appid=27c9211b5d8e1b6977681116bda54b7d";
     $.ajax({
-        url:queryforcastURL,
+        url:forcastURL,
         method:"GET"
     }).then(function(response){
         
@@ -110,7 +110,7 @@ function forecast(cityid){
     });
 }
 
-//Daynamically add the passed city on the search history
+//add city on the search history
 function addToList(c){
     var listEl= $("<li>"+c.toUpperCase()+"</li>");
     $(listEl).attr("class","list-group-item");
