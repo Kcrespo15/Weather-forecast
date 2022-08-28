@@ -6,8 +6,8 @@ var temperature = $("#temperature");
 var humidty= $("#humidityPer");
 var windSpeed=$("#windSpeed");
 var uvIndex= $("#uvIndex");
-var sCity = []
-
+var sCity=[];
+var city="";
 
 // searches the city to see if it exists in the entries from the storage
 function find(c){
@@ -23,7 +23,8 @@ function find(c){
 function displayWeather(event){
     event.preventDefault();
     if(searchBar.val().trim()!==""){
-        console.log(searchBar)
+        city=searchBar.val().trim();
+        currentWeather(city);
     }
 }
 
@@ -42,10 +43,10 @@ function currentWeather(city){
         $(searchedCity).html(response.name +"("+date+")" + "<img src="+iconurl+">");
         
         var tempF = (response.main.temp )
-        $(temperature).html(tempF + "&#8457");
-        $(humidty).html(response.main.humidity+"%");
+        $(temperature).html(tempF + " &#8457");
+        $(humidty).html(response.main.humidity+" %");
         var windS=response.wind.speed;
-        $(windSpeed).html(windS+"MPH");
+        $(windSpeed).html(windS+" MPH");
 
         // get uvIndex 
         UVIndex(response.coord.lon,response.coord.lat);
@@ -72,22 +73,22 @@ function currentWeather(city){
     });
 }
 
-    // udIndex function
+    // ucIndex Response
 function UVIndex(lon,lat){
-    var uvURL="https://api.openweathermap.org/data/2.5/uvi?appid=27c9211b5d8e1b6977681116bda54b7d&lat="+lat+"&lon="+lon;
+    var uvqURL="https://api.openweathermap.org/data/2.5/uvi?appid=27c9211b5d8e1b6977681116bda54b7d&lat="+lat+"&lon="+lon;
     $.ajax({
-            url:uvURL,
+            url:uvqURL,
             method:"GET"
             }).then(function(response){
                 $(uvIndex).html(response.value);
             });
 }
     
-// display the 5 days forecast
+//  display 5 day forecast 
 function forecast(cityid){
-    var forcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&units=imperial&appid=27c9211b5d8e1b6977681116bda54b7d";
+    var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&units=imperial&appid=27c9211b5d8e1b6977681116bda54b7d";
     $.ajax({
-        url:forcastURL,
+        url:queryforcastURL,
         method:"GET"
     }).then(function(response){
         
@@ -96,7 +97,7 @@ function forecast(cityid){
             var iconcode= response.list[i+1].weather[0].icon;
             var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
             var tempK= response.list[i+1].main.temp;
-            var tempF=(tempK).toFixed(2);
+            var tempF=(tempK).toFixed(0);
             var humidity= response.list[i+1].main.humidity;
         
             $("#date"+i).html(date);
@@ -108,7 +109,7 @@ function forecast(cityid){
     });
 }
 
-//add city on the search history
+// add city to search
 function addToList(c){
     var listEl= $("<li>"+c.toUpperCase()+"</li>");
     $(listEl).attr("class","list-group-item");
@@ -117,7 +118,7 @@ function addToList(c){
 }
 
 // display the past search again when the list group item is clicked in search history
-function invokePastSearch(event){
+function pastSearch(event){
     var liEl=event.target;
     if (event.target.matches("li")){
         city=liEl.textContent.trim();
@@ -127,7 +128,7 @@ function invokePastSearch(event){
 }
 
 // render function
-function loadlastCity(){
+function lastCity(){
     $("ul").empty();
     var sCity = JSON.parse(localStorage.getItem("cityname"));
     if(sCity!==null){
@@ -143,5 +144,5 @@ function loadlastCity(){
 
 //Click Handlers
 $("#searchBtn").on("click",displayWeather);
-$(document).on("click",invokePastSearch);
-$(window).on("load",loadlastCity);
+$(document).on("click",pastSearch);
+$(window).on("load",lastCity);
