@@ -52,7 +52,7 @@ function currentWeather(city){
         forecast(response.id);
         if(response.cod==200){
             sCity=JSON.parse(localStorage.getItem("cityname"));
-            console.log(sCity);
+            // console.log(sCity);
             if (sCity==null){
                 sCity=[];
                 sCity.push(city.toUpperCase()
@@ -72,17 +72,37 @@ function currentWeather(city){
     });
 }
 
-    // ucIndex Response
+    // uvIndex Response
 function UVIndex(lon,lat){
     var uvqURL="https://api.openweathermap.org/data/2.5/uvi?appid=27c9211b5d8e1b6977681116bda54b7d&lat="+lat+"&lon="+lon;
     $.ajax({
             url:uvqURL,
             method:"GET"
-            }).then(function(response){
-                $(uvIndex).html(response.value);
+            }).then(function(UVresponse) {
+                $(uvIndex).html(UVresponse.value);
+                var uvResponse = UVresponse.value;
+                // console.log(uvResponse);
+                
+            
+                if (uvResponse < 4) {
+                    // $('uvIndex').addClass('none');
+                    $('#uvIndex').addClass("bg-primary");
+                } else if (uvResponse < 8 && uvResponse > 5 ) {
+                    // $('uvIndex').addClass('none');
+                    $('#uvIndex').addClass('bg-success');
+                } else  {
+                    // $('uvIndex').addClass('none');
+                    $('#uvIndex').addClass('bg-warning');
+                
+                }       
+            
             });
+
+           
+            
 }
-    
+
+
 //  display 5 day forecast 
 function forecast(cityid){
     var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&units=imperial&appid=27c9211b5d8e1b6977681116bda54b7d";
